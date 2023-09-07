@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { request, response} = require('express');
+const res = require('express/lib/response');
 
 const getPeliculas = (req = request, res = response) => {  
     const { anio, ...resto } = req.query;
@@ -48,11 +49,30 @@ const getOrigenNombre = (req = request, res = response) => {
     
 }
 
+const getJokeApi = (req = request, res = response) => {
+    axios.get('https://v2.jokeapi.dev/joke/Any?lang=es')
+        .then(({ data }) => {
+            // handle success     
+            res.status(200).json({
+                data
+            });
+        })
+        .catch((error)=>{
+            // handle error
+            console.log(error)
+            res.status(400).json({
+                status:400,
+                msg: 'Error inesperado'
+            });
+        }); 
+}
+
 
 module.exports = {
     getPeliculas,
     getEstrenos,
     getActores,
     getPelicula,
-    getOrigenNombre
+    getOrigenNombre, 
+    getJokeApi
 };

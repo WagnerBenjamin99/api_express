@@ -26,11 +26,10 @@ const getActores = (req = request, res = response) => {
 const getOrigenNombre = (req = request, res = response) => {
     console.log(req.params);
     const { name } = req.params;
-    console.log(name)
+
     axios.get(`https://api.nationalize.io/?name=${name}`)
         .then(({ status, data, statusText }) => {
-            // handle success
-            console.log({ status, data, statusText });
+            // handle success     
             res.status(200).json({
                 status,
                 data,
@@ -40,7 +39,6 @@ const getOrigenNombre = (req = request, res = response) => {
         })
         .catch((error)=>{
             // handle error
-            console.log(error);
             res.status(400).json({
                 status:400,
                 msg: 'Error inesperado'
